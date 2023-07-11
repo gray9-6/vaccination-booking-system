@@ -17,8 +17,11 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
-    @PostMapping("/add")
+    // Add Person to the database
+    @PostMapping("/add_person")
     public ResponseEntity addPerson(@RequestBody Person person){
+        // it is not necessary that it will always get the saved person. we might receive an error also
+        // in the case when email id is same,, becoz we have set the email id to be unique
         try{
             Person personResponse = personService.addPerson(person);
             return new ResponseEntity(personResponse, HttpStatus.CREATED);
