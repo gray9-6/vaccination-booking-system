@@ -4,6 +4,7 @@ import com.example.vaccinationbookingsystem.Enum.DoseType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -24,6 +25,8 @@ public class Dose {
     @Enumerated(value = EnumType.STRING)
     DoseType doseType;
 
+
+    @CreationTimestamp // it will automatically assign the date, by picking the date from your system
     Date vaccinationDate; // util date has both date and time
 
     @ManyToOne    // first part represent  - current class , second part represent connecting class
