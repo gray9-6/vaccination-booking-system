@@ -13,3 +13,4 @@ public class BookDose1RequestDto {
     int personId;
     DoseType doseType;
 }
+

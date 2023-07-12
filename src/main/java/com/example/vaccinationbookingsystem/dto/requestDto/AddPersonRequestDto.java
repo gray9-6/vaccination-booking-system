@@ -20,3 +20,4 @@ public class AddPersonRequestDto {
 
     Gender gender;
 }
+
