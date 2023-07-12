@@ -2,6 +2,7 @@ package com.example.vaccinationbookingsystem.controller;
 
 import com.example.vaccinationbookingsystem.Enum.DoseType;
 import com.example.vaccinationbookingsystem.Model.Dose;
+import com.example.vaccinationbookingsystem.dto.requestDto.BookDose1RequestDto;
 import com.example.vaccinationbookingsystem.service.DoseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,26 @@ public class DoseController {
     DoseService doseService;
 
     // get dose-1
+
+    // Bt taking Request param as input
+    /*
     @PostMapping("/get_dose_1")
     public ResponseEntity getDose_1(@RequestParam("personId") int personId, @RequestParam("doseType") DoseType doseType){
         try{
             Dose doseTake = doseService.getDose_1(personId, doseType);
+            return new ResponseEntity(doseTake,HttpStatus.CREATED);
+        }
+        catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }    */
+
+
+    // By Taking Request DTO's as input
+    @PostMapping("/get_dose_1")
+    public ResponseEntity getDose_1(@RequestBody BookDose1RequestDto bookDose1RequestDto){
+        try{
+            Dose doseTake = doseService.getDose_1(bookDose1RequestDto);
             return new ResponseEntity(doseTake,HttpStatus.CREATED);
         }
         catch (Exception e){

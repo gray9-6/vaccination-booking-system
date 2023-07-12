@@ -37,16 +37,16 @@ public class Person {
     // i am telling mysql that gender is enum and we are storing as string
     Gender gender;
 
-    boolean isDose1Taken;
+    boolean Dose1Taken;
 
-    boolean isDose2Taken;
+    boolean Dose2Taken;
 
-//    @OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
-//    //means one person can have multiple doses
-//    // and if a person is having multiple doses then i need a data structure to store multiple doses, so i use list
-//    List<Dose> dosesTaken = new ArrayList<>(); // becoz initially person ne 0 dose lagayi hogi, isliye humne yahi initialize kar diya yaha
-//
-//    @OneToOne(mappedBy = "person",cascade = CascadeType.ALL)
-//    Certificate certificate;
+    @OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
+    //means one person can have multiple doses
+    // and if a person is having multiple doses then i need a data structure to store multiple doses, so i use list
+    List<Dose> dosesTaken = new ArrayList<>(); // becoz initially person ne 0 dose lagayi hogi, isliye humne yahi initialize kar diya yaha
+
+    @OneToOne(mappedBy = "person",cascade = CascadeType.ALL)
+    Certificate certificate;
 
 }
