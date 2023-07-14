@@ -4,6 +4,7 @@ import com.example.vaccinationbookingsystem.Enum.DoseType;
 import com.example.vaccinationbookingsystem.Model.Dose;
 import com.example.vaccinationbookingsystem.Model.Person;
 import com.example.vaccinationbookingsystem.dto.requestDto.BookDose1RequestDto;
+import com.example.vaccinationbookingsystem.dto.responseDto.BookDose1ResponseDto;
 import com.example.vaccinationbookingsystem.exception.DoseAlreadyTakenException;
 import com.example.vaccinationbookingsystem.exception.PersonNotFoundException;
 import com.example.vaccinationbookingsystem.repository.DoseRepository;
@@ -65,7 +66,7 @@ public class DoseService {
     }   */
 
     // This is by taking Request DTOs
-    public Dose getDose_1(BookDose1RequestDto bookDose1RequestDto) {
+    public BookDose1ResponseDto getDose_1(BookDose1RequestDto bookDose1RequestDto) {
         // find the person to check he is in database or not
         Optional<Person> optionalPerson = personRepository.findById(bookDose1RequestDto.getPersonId());
 
@@ -97,7 +98,14 @@ public class DoseService {
         Person savedPerson = personRepository.save(person);
 
         // now i want to return the dose , so i will get it in the person repos
-        return savedPerson.getDosesTaken().get(0);
+//        return savedPerson.getDosesTaken().get(0);
+
+        // i want to return the response dto
+        BookDose1ResponseDto bookDose1ResponseDto = new BookDose1ResponseDto();
+        bookDose1ResponseDto.setDoseType(dose.getDoseType());
+        bookDose1ResponseDto.setMessage("Your have successfully taken dose -1");
+
+        return bookDose1ResponseDto;
     }
 }
 

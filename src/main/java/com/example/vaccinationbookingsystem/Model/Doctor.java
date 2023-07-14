@@ -6,6 +6,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.service.annotation.GetExchange;
 
+import java.util.List;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +27,11 @@ public class Doctor {
 
     @Enumerated(EnumType.STRING)
     Gender gender;
+
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    List<Appointment> appointmentList;
+
+    @ManyToOne
+    @JoinColumn
+    VaccinationCenter vaccinationCenter;
 }

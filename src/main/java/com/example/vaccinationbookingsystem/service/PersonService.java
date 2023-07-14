@@ -3,6 +3,7 @@ package com.example.vaccinationbookingsystem.service;
 import com.example.vaccinationbookingsystem.Model.Person;
 import com.example.vaccinationbookingsystem.dto.requestDto.AddPersonRequestDto;
 import com.example.vaccinationbookingsystem.dto.responseDto.AddPersonResponseDto;
+import com.example.vaccinationbookingsystem.exception.PersonNotFoundException;
 import com.example.vaccinationbookingsystem.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,31 @@ public class PersonService {
         return addPersonResponseDto;
 
 
+    }
+
+    public AddPersonResponseDto updateEmail(String oldEmail, String newEmail) {
+        // get the person , by using custom method findByEMailId()
+        Person person  = personRepository.findByEmailId(oldEmail);
+
+        // if that person does not exists then return null
+        if(person == null){
+            throw new PersonNotFoundException("Sorry this email id does not exists ");
+        }
+
+        // if that person exists then set the new email id for that person
+        person.setEmailId(newEmail);
+
+        // now save the person
+        Person savedPerson = personRepository.save(person);
+
+        // prepare response dto for updateEmail
+        AddPersonResponseDto addPersonResponseDto = new AddPersonResponseDto();
+        addPersonResponseDto.setName(savedPerson.getName());
+        addPersonResponseDto.setMessage("email updated successfully !!");
+
+        // return the response dto
+        return addPersonResponseDto;
+//        return "email updated successfully";
     }
 }
 

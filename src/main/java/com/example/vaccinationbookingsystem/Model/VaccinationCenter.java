@@ -1,12 +1,11 @@
 package com.example.vaccinationbookingsystem.Model;
 
 import com.example.vaccinationbookingsystem.Enum.CenterType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
@@ -20,9 +19,13 @@ public class VaccinationCenter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
+    @Enumerated(EnumType.STRING)
     CenterType centerType;
 
     String centerName;
 
     String address;
+
+    @OneToMany(mappedBy = "vaccinationCenter",cascade = CascadeType.ALL)
+    List<Doctor> doctorList;
 }
