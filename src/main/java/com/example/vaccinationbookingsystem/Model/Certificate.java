@@ -24,3 +24,4 @@ public class Certificate {
     @JoinColumn
     Person person;
 }
+

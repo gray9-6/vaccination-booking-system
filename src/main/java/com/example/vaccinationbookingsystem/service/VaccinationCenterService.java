@@ -58,3 +58,4 @@ public class VaccinationCenterService {
         return  vaccinationCenterResponseDto;
     }
 }
+

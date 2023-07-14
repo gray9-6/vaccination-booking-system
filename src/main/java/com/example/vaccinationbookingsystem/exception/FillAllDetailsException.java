@@ -5,3 +5,4 @@ public class FillAllDetailsException extends RuntimeException{
         super(message);
     }
 }
+

@@ -6,3 +6,4 @@ public class PersonNotFoundException extends RuntimeException{
         super(message);
     }
 }
+

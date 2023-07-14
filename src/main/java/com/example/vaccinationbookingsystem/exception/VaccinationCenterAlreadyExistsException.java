@@ -5,3 +5,4 @@ public class VaccinationCenterAlreadyExistsException extends RuntimeException{
         super(message);
     }
 }
+

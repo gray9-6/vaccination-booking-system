@@ -16,3 +16,4 @@ public class VaccinationCentreRequestDto {
 
     String address;
 }
+

@@ -5,3 +5,4 @@ public class DoseAlreadyTakenException extends RuntimeException{
         super(message);
     }
 }
+

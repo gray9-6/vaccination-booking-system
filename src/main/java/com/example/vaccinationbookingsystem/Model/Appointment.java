@@ -32,3 +32,4 @@ public class Appointment {
     @JoinColumn
     Doctor doctor;
 }
+

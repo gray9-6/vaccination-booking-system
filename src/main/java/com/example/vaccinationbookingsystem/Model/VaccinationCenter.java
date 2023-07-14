@@ -29,3 +29,4 @@ public class VaccinationCenter {
     @OneToMany(mappedBy = "vaccinationCenter",cascade = CascadeType.ALL)
     List<Doctor> doctorList;
 }
+
