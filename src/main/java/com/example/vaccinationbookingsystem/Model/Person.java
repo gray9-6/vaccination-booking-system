@@ -27,8 +27,7 @@ public class Person {
 
     int age;
 
-
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     //  @Column(unique = true,nullable = false)
     // now this column became unique, and user have to pass the email id ,se we set to nullable
     String emailId;

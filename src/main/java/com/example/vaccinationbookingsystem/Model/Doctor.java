@@ -22,7 +22,9 @@ public class Doctor {
 
     String name;
 
-    @Column(unique = true)
+    int age;
+
+    @Column(unique = true,nullable = false)
     String emailId;
 
     @Enumerated(EnumType.STRING)
