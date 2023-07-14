@@ -3,16 +3,18 @@ package com.example.vaccinationbookingsystem.service;
 import com.example.vaccinationbookingsystem.Model.Doctor;
 import com.example.vaccinationbookingsystem.Model.VaccinationCenter;
 import com.example.vaccinationbookingsystem.dto.requestDto.AddDoctorRequestDto;
-import com.example.vaccinationbookingsystem.dto.responseDto.DoctorResponseDto;
+import com.example.vaccinationbookingsystem.dto.responseDto.AddDoctorResponseDto;
+import com.example.vaccinationbookingsystem.dto.responseDto.DoctorResponseByAgeDto;
 import com.example.vaccinationbookingsystem.dto.responseDto.VaccinationCenterResponseDto;
 import com.example.vaccinationbookingsystem.exception.DoctorIsAlreadyPresent;
-import com.example.vaccinationbookingsystem.exception.VaccinationCenterAlreadyExistsException;
+import com.example.vaccinationbookingsystem.exception.DoctorNotFoundException;
 import com.example.vaccinationbookingsystem.exception.VaccinationCenterDoesNotExists;
 import com.example.vaccinationbookingsystem.repository.DoctorRepository;
 import com.example.vaccinationbookingsystem.repository.VaccinationCenterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +27,7 @@ public class DoctorService {
     @Autowired
     VaccinationCenterRepository vaccinationCenterRepository;
 
-    public DoctorResponseDto addDoctor(AddDoctorRequestDto addDoctorRequestDto) {
+    public AddDoctorResponseDto addDoctor(AddDoctorRequestDto addDoctorRequestDto) {
 
         // first check center exists or not
         // if not , then throw  exception
@@ -69,9 +71,9 @@ public class DoctorService {
         List<Doctor> doctorList = savedCenter.getDoctorList();
         Doctor savedDoctor = doctorList.get(doctorList.size()-1);
 
-        DoctorResponseDto doctorResponseDto = new DoctorResponseDto();
-        doctorResponseDto.setName(savedDoctor.getName());
-        doctorResponseDto.setMessage("Congrats !! , You have been register");
+        AddDoctorResponseDto addDoctorResponseDto = new AddDoctorResponseDto();
+        addDoctorResponseDto.setName(savedDoctor.getName());
+        addDoctorResponseDto.setMessage("Congrats !! , You have been register");
 
         VaccinationCenterResponseDto vaccinationCenterResponseDto = new VaccinationCenterResponseDto();
         vaccinationCenterResponseDto.setCenterName(savedCenter.getCenterName());
@@ -79,9 +81,47 @@ public class DoctorService {
         vaccinationCenterResponseDto.setAddress(savedCenter.getAddress());
         vaccinationCenterResponseDto.setMessage("ThankYou for registering to this center !!");
 
-        doctorResponseDto.setVaccinationCenterResponseDto(vaccinationCenterResponseDto);
+        addDoctorResponseDto.setVaccinationCenterResponseDto(vaccinationCenterResponseDto);
 
         // return the prepared response DTO
-        return doctorResponseDto;
+        return addDoctorResponseDto;
+    }
+
+    public List<DoctorResponseByAgeDto> getDoctorsByAgeGreaterThan(int age) {
+        // get the list of doctors with the age greater than given age
+        List<Doctor> doctorList = doctorRepository.getDoctorByAgeGreaterThan(age);
+
+        // if the doctor list is empty then throw new exception
+        if(doctorList.isEmpty()){
+            throw  new DoctorNotFoundException("No Doctor found above this age !!");
+        }
+
+        // make a response dto list
+        List<DoctorResponseByAgeDto>  doctorResponseByAgeDtosList = new ArrayList<>();
+
+        // iterate over doctor list and get the doctor and for doctor prepare the dto and add that dto to list
+        for(Doctor doctor : doctorList){
+            // make a new response dto;
+            DoctorResponseByAgeDto doctorResponseByAgeDto = new DoctorResponseByAgeDto();
+
+            //setting the doctor details to dto
+            doctorResponseByAgeDto.setName(doctor.getName());
+            doctorResponseByAgeDto.setEmail(doctor.getEmailId());
+            doctorResponseByAgeDto.setAge(doctor.getAge());
+            doctorResponseByAgeDto.setGender(doctor.getGender());
+
+            VaccinationCenterResponseDto vaccinationCenterResponseDto = new VaccinationCenterResponseDto();
+            vaccinationCenterResponseDto.setCenterName(doctor.getVaccinationCenter().getCenterName());
+            vaccinationCenterResponseDto.setCenterType(doctor.getVaccinationCenter().getCenterType());
+            vaccinationCenterResponseDto.setAddress(doctor.getVaccinationCenter().getAddress());
+
+            doctorResponseByAgeDto.setVaccinationCenterResponseDto(vaccinationCenterResponseDto);
+
+            // now add the response dto list
+            doctorResponseByAgeDtosList.add(doctorResponseByAgeDto);
+
+        }
+
+        return doctorResponseByAgeDtosList;
     }
 }
