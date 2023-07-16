@@ -30,3 +30,4 @@ public class VaccinationCenter {
     List<Doctor> doctorList;
 }
 
+

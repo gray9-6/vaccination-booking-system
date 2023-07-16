@@ -26,6 +26,6 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
     // like first is age and then name , so in parameter also we have to pass the age fist and then name
     List<Person>findByAgeAndName(int age, String name);
 
-
 }
+
 

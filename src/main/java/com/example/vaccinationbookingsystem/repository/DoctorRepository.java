@@ -20,3 +20,4 @@ public interface DoctorRepository extends JpaRepository<Doctor,Integer> {
     @Query(value = "select * from doctor where age > :age",nativeQuery = true)
     List<Doctor> getDoctorByAgeGreaterThan(int age);
 }
+

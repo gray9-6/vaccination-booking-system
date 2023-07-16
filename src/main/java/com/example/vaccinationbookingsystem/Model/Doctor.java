@@ -38,3 +38,4 @@ public class Doctor {
     VaccinationCenter vaccinationCenter;
 }
 
+

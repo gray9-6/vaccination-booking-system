@@ -13,3 +13,4 @@ public interface VaccinationCenterRepository extends JpaRepository<VaccinationCe
     List<VaccinationCenter> findByCenterName(String centerName);
 }
 
+
