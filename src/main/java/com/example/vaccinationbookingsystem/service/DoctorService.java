@@ -114,6 +114,7 @@ public class DoctorService {
             vaccinationCenterResponseDto.setCenterName(doctor.getVaccinationCenter().getCenterName());
             vaccinationCenterResponseDto.setCenterType(doctor.getVaccinationCenter().getCenterType());
             vaccinationCenterResponseDto.setAddress(doctor.getVaccinationCenter().getAddress());
+            vaccinationCenterResponseDto.setMessage("Thanks for coming to My Profile");
 
             doctorResponseByAgeDto.setVaccinationCenterResponseDto(vaccinationCenterResponseDto);
 

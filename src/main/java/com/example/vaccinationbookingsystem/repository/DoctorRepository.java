@@ -17,6 +17,6 @@ public interface DoctorRepository extends JpaRepository<Doctor,Integer> {
     // custom query method of jpa (third method)
 
     //@Query(value = "select d from Doctor as d where d.age > : age ") this is when we don't have to write nativeQuery
-    @Query(value = "select * from doctor where age > : age",nativeQuery = true)
+    @Query(value = "select * from doctor where age > :age",nativeQuery = true)
     List<Doctor> getDoctorByAgeGreaterThan(int age);
 }

@@ -52,7 +52,7 @@ public class VaccinationCenterService {
         vaccinationCenterResponseDto.setCenterType(savedCenter.getCenterType());
         vaccinationCenterResponseDto.setCenterName(savedCenter.getCenterName());
         vaccinationCenterResponseDto.setAddress(savedCenter.getAddress());
-        vaccinationCenterResponseDto.setMessage("You have Successfully booked the centre !!");
+        vaccinationCenterResponseDto.setMessage("You have Successfully added the centre !!");
 
         // return the response
         return  vaccinationCenterResponseDto;
